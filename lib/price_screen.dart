@@ -48,12 +48,14 @@ class _PriceScreenState extends State<PriceScreen> {
     );
   }
 
+  //12. Crear una variable, en este caso bitcoinValueInUSD para guardar el valor. Darle a la variable un valor inicial de '?' antes de que la data vuelva del metodo async.
   String bitcoinValueInUSD = '?';
 
-  //TODO: Create a method here called getData() to get the coin data from coin_data.dart
+  //11. Crear un metodo async, que await el coin data de coin_data.dart
   void getData() async {
     try {
       double data = await CoinData().getCoinData();
+      //13. No podemos await en setState(). Entonces tenemos que separarlo.
       setState(() {
         bitcoinValueInUSD = data.toStringAsFixed(0);
       });
@@ -65,7 +67,7 @@ class _PriceScreenState extends State<PriceScreen> {
   @override
   void initState() {
     super.initState();
-    //TODO: Call getData() when the screen loads up.
+    //14. llamamos getData() cuando la pantalla recarga. No podemos llamar CoinData().getCoinData() directamente porque no se puede hacer initState() async.
     getData();
   }
 
@@ -90,9 +92,8 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  //TODO: Update the Text Widget with the live bitcoin data here.
-
-                  '1 BTC = $bitcoinValueInUSD',
+                  //15. Mostramos el dato en bitcoinValueInUSD.
+                  '1 BTC = $bitcoinValueInUSD USD',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
